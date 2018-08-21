@@ -9,11 +9,11 @@ export class RestService {
   }
 
   setupDemo() {
-    return this.httpClient.post('https://mire.serveo.net//api/org.collectable.penguin._demoSetup', null, {withCredentials: true}).toPromise();
+    return this.httpClient.post('https://offero.serveo.net/api/org.collectable.penguin._demoSetup', null, {withCredentials: true}).toPromise();
   }
 
   checkWallet() {
-    return this.httpClient.get('https://mire.serveo.net//api/wallet', {withCredentials: true}).toPromise();
+    return this.httpClient.get('https://offero.serveo.net/api/wallet', {withCredentials: true}).toPromise();
   }
 
   signUp(data) {
@@ -24,7 +24,7 @@ export class RestService {
       lastName: data.surname
     };
 
-    return this.httpClient.post('http://localhost:3001/api/org.collectable.penguin.Collector', collector).toPromise()
+    return this.httpClient.post('http://192.168.56.101:3001/api/org.collectable.penguin.Collector', collector).toPromise()
       .then(() => {
         const identity = {
           participant: 'org.collectable.penguin.Collector#' + data.id,
@@ -32,7 +32,7 @@ export class RestService {
           options: {}
         };
 
-        return this.httpClient.post('http://localhost:3001/api/system/identities/issue', identity, {responseType: 'blob'}).toPromise();
+        return this.httpClient.post('http://192.168.56.101:3001/api/system/identities/issue', identity, {responseType: 'blob'}).toPromise();
       })
       .then((cardData) => {
       console.log('CARD-DATA', cardData);
@@ -43,7 +43,7 @@ export class RestService {
 
         const headers = new HttpHeaders();
         headers.set('Content-Type', 'multipart/form-data');
-        return this.httpClient.post('https://mire.serveo.net//api/wallet/import', formData, {
+        return this.httpClient.post('https://offero.serveo.net/api/wallet/import', formData, {
           withCredentials: true,
           headers
         }).toPromise();
@@ -51,22 +51,22 @@ export class RestService {
   }
 
   getCurrentUser() {
-    return this.httpClient.get('https://mire.serveo.net//api/system/ping', {withCredentials: true}).toPromise()
+    return this.httpClient.get('https://offero.serveo.net/api/system/ping', {withCredentials: true}).toPromise()
       .then((data) => {
         return data['participant'];
       });
   }
 
   getAllPenguins() {
-    return this.httpClient.get('https://mire.serveo.net//api/org.collectable.penguin.Penguin', {withCredentials: true}).toPromise();
+    return this.httpClient.get('https://offero.serveo.net/api/org.collectable.penguin.Penguin', {withCredentials: true}).toPromise();
   }
 
   getAvailablePenguins() {
-    return this.httpClient.get('https://mire.serveo.net//api/queries/availablePenguins', {withCredentials: true}).toPromise();
+    return this.httpClient.get('https://offero.serveo.net/api/queries/availablePenguins', {withCredentials: true}).toPromise();
   }
 
   getMyPenguins() {
-    return this.httpClient.get('https://mire.serveo.net//api/queries/myPenguins', {withCredentials: true}).toPromise();
+    return this.httpClient.get('https://offero.serveo.net/api/queries/myPenguins', {withCredentials: true}).toPromise();
   }
 
   buyPenguin(penguinId, currentUser) {
@@ -76,6 +76,6 @@ export class RestService {
       newOwner: currentUser
     };
 
-    return this.httpClient.post('https://mire.serveo.net//api/org.collectable.penguin.Trade', transactionDetails, {withCredentials: true}).toPromise();
+    return this.httpClient.post('https://offero.serveo.net/api/org.collectable.penguin.Trade', transactionDetails, {withCredentials: true}).toPromise();
   }
 }
