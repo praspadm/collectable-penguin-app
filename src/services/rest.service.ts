@@ -24,7 +24,7 @@ export class RestService {
       lastName: data.surname
     };
 
-    return this.httpClient.post('http://192.168.56.101:3001/api/org.collectable.penguin.Collector', collector).toPromise()
+    return this.httpClient.post('https://192.168.56.101:3001/api/org.collectable.penguin.Collector', collector).toPromise()
       .then(() => {
         const identity = {
           participant: 'org.collectable.penguin.Collector#' + data.id,
@@ -32,7 +32,7 @@ export class RestService {
           options: {}
         };
 
-        return this.httpClient.post('http://192.168.56.101:3001/api/system/identities/issue', identity, {responseType: 'blob'}).toPromise();
+        return this.httpClient.post('https://192.168.56.101:3001/api/system/identities/issue', identity, {responseType: 'blob'}).toPromise();
       })
       .then((cardData) => {
       console.log('CARD-DATA', cardData);
